@@ -1,0 +1,209 @@
+// https://github.com/sass/sass/issues/659#issuecomment-64819075
+@function char($character-code) {
+    @if function-exists("selector-append") {
+        @return unquote("\"\\#{$character-code}\"");
+    }
+
+    @return str-slice("\x", 1, 1) + $character-code;
+}
+
+
+$icon-font-family: "bootstrap-icons";
+
+// http://sass-lang.com/documentation/file.SASS_REFERENCE.html#maps
+$icons: (
+    play: 'F4F4',
+    play-circle: 'F4F2',
+    pause: 'F4C3',
+    volume-mute: 'F60C',
+    volume-low: 'F60E',
+    volume-mid: 'F60A',
+    volume-high: 'F610',
+    fullscreen-enter: 'F3DF',
+    fullscreen-exit: 'f109',
+    square: 'f10a',
+    spinner: 'F117',
+    subtitles: 'f10c',
+    captions: 'f10d',
+    chapters: 'f10e',
+    share: 'f10f',
+    cog: 'f110',
+    circle: 'F287',
+    circle-outline: 'F28A',
+    circle-inner-circle: 'F517',
+    hd: 'f114',
+    cancel: 'f115',
+    replay: 'f116',
+    facebook: 'f117',
+    gplus: 'f118',
+    linkedin: 'f119',
+    twitter: 'f11a',
+    tumblr: 'f11b',
+    pinterest: 'f11c',
+    audio-description: 'f11d',
+    github: 'f11e',
+    audio: 'f11f',
+    next-item: 'f120',
+    previous-item: 'f121',
+    tick: 'f122',
+    slow-motion-video: 'f123',
+    repeat: 'f124',
+    loop: 'f125',
+    warning: 'f126',
+    cast: 'f127',
+    arrow-left: 'f128',
+    arrow-right: 'f129',
+    picture-in-picture: 'F4EE',
+    audiotrack: 'F4A0',
+);
+
+// Make icon class style
+@each $name, $content in $icons {
+    .vjs-icon-#{$name} {
+        font-family: $icon-font-family;
+        font-weight: normal;
+        font-style: normal;
+
+        &:before {
+            content: char($content);
+        }
+    }
+}
+
+.video-js {
+    .vjs-big-play-button,
+    .vjs-play-control {
+        .vjs-icon-placeholder {
+            @extend .vjs-icon-play;
+        }
+    }
+
+    .vjs-play-control {
+        &.vjs-playing {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-pause;
+            }
+        }
+    }
+
+    .vjs-mute-control {
+        .vjs-icon-placeholder {
+            @extend .vjs-icon-volume-high;
+
+            &:before {
+                font-size: 0.95em;
+                transform: translateY(0.05em);
+                display: block;
+            }
+        }
+
+        &.vjs-vol-0 {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-volume-mute;
+            }
+        }
+
+        &.vjs-vol-1 {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-volume-low;
+            }
+        }
+
+        &.vjs-vol-2 {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-volume-mid;
+            }
+        }
+    }
+
+    .vjs-fullscreen-control {
+        .vjs-icon-placeholder {
+            @extend .vjs-icon-fullscreen-enter;
+        }
+    }
+
+    &.vjs-fullscreen {
+        .vjs-fullscreen-control {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-fullscreen-exit;
+            }
+        }
+    }
+
+    .vjs-subtitles-button .vjs-icon-placeholder,
+    .vjs-subs-caps-button .vjs-icon-placeholder,
+    &.video-js:lang(en-GB) .vjs-subs-caps-button .vjs-icon-placeholder,
+    &.video-js:lang(en-IE) .vjs-subs-caps-button .vjs-icon-placeholder,
+    &.video-js:lang(en-AU) .vjs-subs-caps-button .vjs-icon-placeholder,
+    &.video-js:lang(en-NZ) .vjs-subs-caps-button .vjs-icon-placeholder {
+        @extend .vjs-icon-subtitles;
+    }
+
+    .vjs-captions-button .vjs-icon-placeholder,
+    &:lang(en) .vjs-subs-caps-button .vjs-icon-placeholder,
+    &:lang(fr-CA) .vjs-subs-caps-button .vjs-icon-placeholder {
+        @extend .vjs-icon-captions;
+    }
+
+    .vjs-chapters-button .vjs-icon-placeholder {
+        @extend .vjs-icon-chapters;
+    }
+
+    .vjs-play-progress,
+    .vjs-volume-level {
+        @extend .vjs-icon-circle;
+    }
+
+    .vjs-control {
+        &.vjs-close-button {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-cancel;
+            }
+        }
+    }
+
+    .vjs-play-control {
+        &.vjs-ended {
+            .vjs-icon-placeholder {
+                @extend .vjs-icon-replay;
+            }
+        }
+    }
+
+    .vjs-descriptions-button {
+        .vjs-icon-placeholder {
+            @extend .vjs-icon-audio-description;
+        }
+    }
+
+    .vjs-audio-button {
+        .vjs-icon-placeholder {
+            @extend .vjs-icon-audio;
+        }
+    }
+}
+
+.vjs-setting-button {
+    .vjs-icon-placeholder {
+        @extend .vjs-icon-cog;
+        &:before {
+            font-size: 0.8em;
+            transform: translateY(-0.005em);
+            display: block;
+        }
+    }
+}
+
+.vjs-icon-github {
+    &:before {
+        font-size: 0.8em;
+        padding: 0 0.2em;
+        display: block;
+    }
+}
+
+.vjs-modal-dialog-content {
+    &:before {
+        @extend .vjs-icon-warning;
+    }
+}

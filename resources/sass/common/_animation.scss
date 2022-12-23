@@ -1,0 +1,72 @@
+@keyframes mega-hover {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes mega-hover-off {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+    99% {
+        left: 0;
+        opacity: 0;
+    }
+    100% {
+        left: 110vw;
+        opacity: 0;
+    }
+}
+
+@keyframes waffle-hover {
+    0% {
+        right: -5px;
+        opacity: 0;
+    }
+    100% {
+        right: -5px;
+        opacity: 1;
+    }
+}
+
+@keyframes waffle-hover-off {
+    0% {
+        right: -5px;
+        opacity: 1;
+    }
+    99% {
+        right: -5px;
+        opacity: 0;
+    }
+    100% {
+        right: 110vw;
+        opacity: 0;
+    }
+}
+
+@keyframes dropdown-hover {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes dropdown-hover-off {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}

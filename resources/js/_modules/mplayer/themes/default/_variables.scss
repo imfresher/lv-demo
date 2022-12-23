@@ -1,0 +1,26 @@
+$font-size: 14px;
+$icon-size: 1.6em;
+$primary-color: #f98012; //#f00; // #4080ff;
+$primary-dark-color: #c00;
+$secondary-color: #fc0;
+
+$text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+$box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+$popup-color: #eee;
+$popup-bg: rgba(28, 28, 28, .9);
+$popup-border-radius: 2px;
+
+$control-bar-height: 2.875em;
+$control-bar-vertical-padding: 0.2em;
+$control-bar-horizontal-padding: 1.2em;
+$control-bar-button-height: calc($control-bar-height - $control-bar-vertical-padding);
+$control-bar-button-width: $control-bar-height;
+
+$progress-bar-height: 0.25em;
+$progress-bar-height-hover: 0em;
+$progress-dot-size: calc($progress-bar-height * 3);
+$progress-bg1: rgba(255, 255, 255, 0.2);
+$progress-bg2: rgba(255, 255, 255, 0.4);
+$progress-bg3: $primary-color;
+
+$volume-bar-height: 0.4em;

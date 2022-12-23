@@ -1,0 +1,22 @@
+.header__main {
+    position: relative;
+    background-color: #fff;
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        position: static;
+        overflow: visible;
+    }
+}
+
+.site__branding {
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.logo__img {
+    width: auto;
+    height: 40px;
+}

@@ -1,0 +1,23 @@
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import '~/bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
+@import 'variables';
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import '~/bootstrap/scss/variables';
+
+// 4. Include any default map overrides here
+// - Add to map:
+// $custom-colors: (
+//   "custom-color": #900
+// );
+// $theme-colors: map-merge($theme-colors, $custom-colors);
+
+// - Remove map:
+// $theme-colors: map-remove($theme-colors, "info", "light", "dark");
+
+// 5. Include remainder of required parts
+@import '~/bootstrap/scss/bootstrap';
+
+@import 'common';

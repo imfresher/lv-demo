@@ -1,0 +1,853 @@
+.video-js {
+    &.vjs-mplayer {
+        font-size: $font-size;
+        font-family: inherit;
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+
+        /*
+         *   hide ios big play button
+         *   https://stackoverflow.com/questions/8911247/hide-iphone-html5-video-play-button
+         */
+        *::-webkit-media-controls-panel,
+        *::-webkit-media-controls-play-button,
+        *::-webkit-media-controls-start-playback-button {
+            display: none !important;
+            -webkit-appearance: none;
+        }
+
+        &:-moz-full-screen {
+            position: absolute;
+        }
+
+        &:-webkit-full-screen {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        &[tabindex='-1'] {
+            outline: none;
+        }
+
+        ul {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            list-style-position: outside;
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0;
+            outline: 0;
+        }
+
+        .vjs-time-divider,
+        .vjs-current-time,
+        &.vjs-no-flex .vjs-current-time,
+        .vjs-duration,
+        &.vjs-no-flex .vjs-duration {
+            display: block;
+        }
+
+        .vjs-spacer {
+            flex-grow: 1;
+            display: block;
+        }
+
+        .vjs-controls-disabled .vjs-big-play-button,
+        .vjs-has-started .vjs-big-play-button,
+        .vjs-using-native-controls .vjs-big-play-button,
+        .vjs-error .vjs-big-play-button {
+            display: none;
+        }
+
+        .vjs-has-started.vjs-paused.vjs-show-big-play-button-on-pause .vjs-big-play-button {
+            display: block;
+        }
+
+        .vjs-play-toggle-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            cursor: pointer;
+
+            &:before,
+            &:after {
+                display: none;
+                font-family: VideoJS;
+                font-weight: normal;
+                font-style: normal;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 1.2em;
+                height: 1.2em;
+                text-align: center;
+                font-size: 4em;
+                line-height: 1.2em;
+                z-index: 19;
+                margin-left: -0.6em;
+                margin-top: -0.6em;
+                background: rgba(0, 0, 0, 0.5);
+                border-radius: 100%;
+                pointer-events: none;
+                -webkit-animation: bezel-fadeout .5s linear 1 normal forwards;
+                animation: bezel-fadeout .5s linear 1 normal forwards;
+            }
+
+            &:before {
+                content: "\f101";
+            }
+
+            &:after {
+                content: "\f103";
+            }
+        }
+
+        &.vjs-paused {
+            .vjs-play-toggle-layer {
+                &:before {
+                    display: block;
+                }
+            }
+        }
+
+        &.vjs-playing {
+            .vjs-play-toggle-layer {
+                &:after {
+                    display: block;
+
+                }
+            }
+        }
+
+        .vjs-big-play-button {
+            outline: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            font-size: 7em;
+            line-height: 1em;
+            height: 1em;
+            width: 1em;
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            filter: drop-shadow(1px 1px 10px #333);
+
+            .vjs-icon-placeholder:before {
+                font-size: inherit !important;
+                line-height: 1 !important;
+            }
+        }
+
+        // Icons
+        .vjs-icon-placeholder {
+            &.vjs-icon-playback-rate,
+            &.vjs-icon-quality,
+            &.vjs-icon-subtitles,
+            &.vjs-icon-annotation {
+                &:before {
+                    font-family: "bootstrap-icons";
+                }
+            }
+
+            &.vjs-icon-playback-rate {
+                &:before {
+                    content: '\F4F3';
+                }
+            }
+
+            &.vjs-icon-quality {
+                &:before {
+                    content: '\F789';
+                }
+            }
+
+            &.vjs-icon-subtitles {
+                &:before {
+                    content: '\F165';
+                }
+            }
+
+            &.vjs-icon-annotation {
+                &:before {
+                    content: '\F25A';
+                }
+            }
+        }
+
+        .vjs-setting-onoff-item {
+            .vjs-onoff-button {
+                width: 2.8em;
+                height: 1em;
+                float: right;
+                color: #ddd;
+                background-color: #ddd;
+                border-radius: 50px;
+                position: relative;
+
+                &:before {
+                    content: "";
+                    border-radius: 50%;
+                    height: 0;
+                    width: 1.4em;
+                    height: 1.4em;
+                    display: block;
+                    box-shadow: 0px 1px 6px rgb(0 0 0 / 50%);
+                    background: #fff;
+                    position: absolute;
+                    top: -0.2em;
+                    transform: translateX(0px);
+                    transition: 0.3s transform ease;
+                }
+            }
+
+            &.vjs-active {
+                .vjs-onoff-button {
+                    color: #fff;
+                    background-color: $primary-color;
+
+                    &:before {
+                        transform: translateX(1.4em);
+                    }
+                }
+            }
+        }
+
+
+
+        // Popup and Tooltip
+        .vjs-menu,
+        // .vjs-setting-menu .vjs-menu-content,
+        &.vjs-workinghover .vjs-control > .vjs-control-text,
+        &.vjs-workinghover .vjs-menu-button-popup[aria-expanded='false'] > .vjs-control-text {
+            color: $popup-color;
+            text-shadow: $text-shadow;
+            background: $popup-bg;
+            border-radius: $popup-border-radius;
+            box-shadow: $box-shadow;
+            // overflow: hidden;
+        }
+
+        // Tooltip
+        &.vjs-workinghover {
+            .vjs-control,
+            .vjs-menu-button-popup[aria-expanded='false'] {
+                > .vjs-control-text {
+                    width: auto;
+                    height: auto;
+                    display: table;
+                    clip: auto;
+                    overflow: visible;
+                    font-size: 0.875em;
+                    top: calc(-1.5em - 25px);
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: 0.3s opacity;
+                    padding: 7px 10px;
+                    white-space: nowrap;
+                }
+
+                &.vjs-time-control {
+                    .vjs-control-text {
+                        display: none;
+                    }
+                }
+
+                &:hover {
+                    > .vjs-control-text {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .vjs-progress-control {
+                &:hover {
+                    .vjs-mouse-display {
+                        .vjs-time-tooltip {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Control bar
+        .vjs-control-bar {
+            background-color: transparent;
+            height: $control-bar-height;
+            padding: $control-bar-vertical-padding $control-bar-horizontal-padding;
+            padding-bottom: 0;
+        }
+
+        .vjs-control {
+            width: $control-bar-button-width;
+        }
+
+        .vjs-time-control {
+            min-width: 1em;
+            text-align: center;
+            padding-left: 0.2em;
+            padding-right: 0.2em;
+        }
+
+        .vjs-time-control {
+            line-height: $control-bar-button-height;
+        }
+
+        .vjs-icon-placeholder {
+            &:before {
+                // font-size: calc($control-bar-button-height * 0.72);
+                // line-height: calc($control-bar-button-height / ($control-bar-button-height * 0.72));
+                font-size: $icon-size;
+                line-height: calc($control-bar-button-height / $icon-size);
+            }
+        }
+
+        .vjs-play-control,
+        .vjs-fullscreen-control {
+            .vjs-icon-placeholder {
+                &:before {
+                    font-size: calc($icon-size * 1.375);
+                    line-height: calc($control-bar-button-height / ($icon-size * 1.375));
+                }
+            }
+        }
+
+        // Progress
+        // .vjs-slider {
+        //     background-color: transparent;
+        // }
+
+        // .vjs-load-progress div {
+        //     background: transparent;
+        // }
+
+        // .vjs-progress-control {
+        //     position: absolute !important;
+        //     left: 0;
+        //     right: 0;
+        //     bottom: calc(#{$control-bar-height} - #{$progress-bar-height-hover});
+        //     margin: auto;
+        //     width: calc(100% - #{$control-bar-horizontal-padding * 2});
+        //     height: auto;
+        //     cursor: pointer;
+
+        //     .vjs-progress-holder {
+        //         position: relative;
+        //         width: 100%;
+        //         height: $progress-dot-size;
+        //         outline: 0;
+        //         margin: 0;
+
+        //         &:before,
+        //         > div {
+        //             position: absolute;
+        //             height: $progress-bar-height;
+        //             margin: #{calc(($progress-dot-size - $progress-bar-height-hover) / 2)} auto;
+        //         }
+
+        //         &:before {
+        //             content: '';
+        //             display: block;
+        //             width: 100%;
+        //             background-color: $progress-bg1;
+        //             // box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        //         }
+
+        //         .vjs-load-progress {
+        //             background: $progress-bg2;
+        //         }
+
+        //         .vjs-play-progress {
+        //             background: $progress-bg3;
+        //         }
+
+        //         .vjs-play-progress {
+        //             &:before {
+        //                 font-size: $progress-dot-size;
+        //                 position: absolute;
+        //                 top: - calc(($progress-dot-size - $progress-bar-height-hover) / 2);
+        //                 right: - calc($progress-dot-size / 2);
+        //                 z-index: 1;
+        //                 line-height: 1em;
+        //                 opacity: 0;
+        //             }
+        //         }
+        //     }
+
+        //     .vjs-time-tooltip {
+        //         display: none;
+        //         font-size: 0.85em;
+        //         line-height: 1em;
+        //         padding: 0.5em 0.7em;
+        //         background-color: rgba(0, 0, 0, 0.5);
+        //         border-radius: 5px;
+        //         position: absolute;
+        //         top: -2.5em;
+        //     }
+        // }
+
+        // &.vjs-workinghover {
+        //     .vjs-progress-control {
+        //         &:hover {
+        //             .vjs-play-progress {
+        //                 &:before {
+        //                     opacity: 1;
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        // }
+
+        // Custom progess
+        .vjs-custom-progress-control {
+            position: absolute !important;
+            left: 0;
+            right: 0;
+            bottom: calc(#{$control-bar-height} - #{$progress-bar-height-hover});
+            display: flex;
+            margin: auto;
+            width: calc(100% - #{$control-bar-horizontal-padding * 2});
+            height: auto;
+            cursor: pointer;
+
+            .vjs-progress-bar {
+                position: relative;
+                width: 100%;
+                height: $progress-dot-size;
+                outline: 0;
+                margin: 0 4px 0 0;
+
+                &:before,
+                > div {
+                    position: absolute;
+                    height: $progress-bar-height;
+                    margin: #{calc(($progress-dot-size - $progress-bar-height-hover) / 2)} auto;
+                }
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    background-color: $progress-bg1;
+                    // box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+                }
+
+                .vjs-load-progress {
+                    background: $progress-bg2;
+                }
+
+                .vjs-play-progress {
+                    background: $progress-bg3;
+                }
+
+                .vjs-play-progress {
+                    &:before {
+                        font-size: $progress-dot-size;
+                        position: absolute;
+                        top: - calc(($progress-dot-size - $progress-bar-height-hover) / 2);
+                        right: - calc($progress-dot-size / 2);
+                        z-index: 1;
+                        line-height: 1em;
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+
+        // Volume
+        .vjs-volume-bar {
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+
+            &.vjs-slider-horizontal {
+                height: $volume-bar-height;
+                margin: calc(($control-bar-button-height - $volume-bar-height) / 2) 0.45em;
+            }
+
+            &.vjs-slider-vertical {
+                width: $volume-bar-height;
+                height: 7em;
+                margin: calc(($control-bar-button-height - $volume-bar-height) / 2) auto;
+            }
+        }
+
+        .vjs-volume-level {
+            background-color: $primary-color;
+            border-radius: 20px;
+
+            &:before {
+                font-size: calc($volume-bar-height * 3);
+            }
+        }
+
+        .vjs-slider-horizontal {
+            .vjs-volume-level {
+                height: $volume-bar-height;
+
+                &:before {
+                    top: -50%;
+                    margin-top: - calc(($volume-bar-height / 2) - 0.05em);
+                }
+            }
+        }
+
+        .vjs-volume-panel.vjs-hover .vjs-volume-control.vjs-volume-horizontal,
+        .vjs-volume-panel:active .vjs-volume-control.vjs-volume-horizontal,
+        .vjs-volume-panel:focus .vjs-volume-control.vjs-volume-horizontal,
+        .vjs-volume-panel .vjs-volume-control:active.vjs-volume-horizontal,
+        .vjs-volume-panel.vjs-hover .vjs-mute-control ~ .vjs-volume-control.vjs-volume-horizontal,
+        .vjs-volume-panel .vjs-volume-control.vjs-slider-active.vjs-volume-horizontal {
+            height: $control-bar-button-height;
+        }
+
+        .vjs-volume-panel.vjs-volume-panel-horizontal.vjs-hover,
+        .vjs-volume-panel.vjs-volume-panel-horizontal:active,
+        .vjs-volume-panel.vjs-volume-panel-horizontal.vjs-slider-active {
+            width: 8em;
+        }
+
+        .vjs-volume-panel .vjs-volume-control.vjs-volume-vertical,
+        .vjs-volume-panel.vjs-hover .vjs-volume-control.vjs-volume-vertical,
+        .vjs-volume-panel:active .vjs-volume-control.vjs-volume-vertical,
+        .vjs-volume-panel:focus .vjs-volume-control.vjs-volume-vertical,
+        .vjs-volume-panel .vjs-volume-control:active.vjs-volume-vertical,
+        .vjs-volume-panel.vjs-hover .vjs-mute-control ~ .vjs-volume-control.vjs-volume-vertical,
+        .vjs-volume-panel .vjs-volume-control.vjs-slider-active.vjs-volume-vertical {
+            width: $control-bar-button-height;
+            left: - $control-bar-button-height;
+            background-color: transparent !important;
+        }
+
+        // Setting Menu
+        // .vjs-icon-cog,
+        // .vjs-setting-button .vjs-icon-placeholder {
+        //     &:before {
+        //         content: "\f110";
+        //     }
+        // }
+
+        .vjs-setting-button {
+            .vjs-icon-placeholder {
+                display: block;
+
+                &:before {
+                    content: "\f110";
+                    font-family: VideoJS;
+                    font-weight: normal;
+                    font-style: normal;
+                    transform: rotate(0deg);
+                    transition: 0.2s transform;
+                }
+            }
+
+            &[aria-expanded='true'] {
+                .vjs-icon-placeholder {
+                    &:before {
+                        transform: rotate(30deg);
+                    }
+                }
+            }
+        }
+
+        .vjs-menu {
+            position: absolute;
+            // overflow: hidden;
+            -webkit-transition: opacity .1s cubic-bezier(0,0,0.2,1);
+            transition: opacity .1s cubic-bezier(0,0,0.2,1);
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+
+            li {
+                list-style: none;
+                margin: 0;
+                padding: 0.3em 2em 0.3em 1.2em;
+                height: 40px;
+                line-height: 1.35em;
+                font-size: 1em;
+                text-align: left;
+                outline: none;
+                cursor: pointer;
+                white-space: nowrap;
+                text-transform: capitalize;
+
+                &.vjs-menu-item {
+                    &:focus,
+                    &:hover {
+                        background-color: rgba(255,255,255,.1);
+                    }
+                }
+
+                &.vjs-settings-sub-menu-item {
+                    width: 100%;
+                    padding-left: 30px;
+
+                    > div {
+                        width: 1em;
+                        margin-right: 0.5em;
+                        position: absolute;
+                        left: 10px;
+
+                        &:before {
+                            content: '';
+                            display: block;
+                            margin: auto;
+                            // position: absolute;
+                            // left: 0.2em;
+                        }
+                    }
+
+                    &.vjs-settings-sub-menu-title {
+                        padding-left: 50px;
+                        padding-bottom: 1em;
+
+                        > div {
+                            left: 20px;
+                        }
+                    }
+                }
+
+                .vjs-icon-placeholder {
+                    margin-right: 10px;
+                }
+            }
+
+            .vjs-menu-content .vjs-menu-item.vjs-setting-onoff-item,
+            .vjs-menu-content .vjs-menu-item.vjs-setting-menu-item {
+                width: 100%;
+            }
+
+            .vjs-menu-content {
+                padding: 1em 0;
+                margin: 0;
+                font-size: 0.875em;
+                color: #fff;
+                overflow: hidden;
+            }
+        }
+
+        .vjs-setting-menu {
+            visibility: hidden;
+            will-change: visibility;
+
+            &::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }
+
+            .vjs-menu-content {
+                will-change: transform, width, height;
+                transition: 0.3s transform ease, 0.3s width ease, 0.3s height ease;
+                min-width: 250px;
+            }
+
+            .vjs-menu-item {
+                display: flex;
+                align-items: center;
+            }
+
+            &.vjs-lock-showing {
+                visibility: visible;
+            }
+        }
+
+        .vjs-menu.vjs-settings-sub-menu {
+            bottom: 0;
+            right: 0;
+            overflow: hidden;
+
+            &.vjs-hidden {
+                visibility: hidden;
+                display: block !important;
+            }
+        }
+
+        // .vjs-setting-menu-label,
+        // .vjs-setting-menu-value {
+        //   // display: table-cell;
+        //   // vertical-align: middle;
+        // }
+
+        .vjs-setting-menu-item {
+            &:after {
+                content: '';
+                width: 0.65em;
+                height: 0.65em;
+                display: inline-block;
+                border-right: 0.15em solid;
+                border-bottom: 0.15em solid;
+                transform: rotate(-45deg);
+                // content: "";
+                // position: absolute;
+                // right: 0.2em;
+                // width: 0.65em;
+                // height: 0.65em;
+                // margin-top: 0.375em;
+                // display: block;
+                // border-right: 0.15em solid;
+                // border-bottom: 0.15em solid;
+                // transform: rotate(-45deg);
+            }
+        }
+
+        .vjs-settings-sub-menu-option {
+            &.vjs-selected {
+                > div {
+                    &:before {
+                        margin: auto;
+                        content: '';
+                        width: 0.425em;
+                        height: 0.85em;
+                        display: block;
+                        margin-top: -0.2em;
+                        border-right: 0.15em solid;
+                        border-bottom: 0.15em solid;
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+        }
+
+        .vjs-menu li.vjs-selected,
+        .vjs-menu li.vjs-selected:focus {
+            background: transparent;
+            color: inherit;
+        }
+
+        .vjs-menu li.vjs-selected:hover,
+        .js-focus-visible .vjs-menu li.vjs-selected:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .vjs-menu-item.vjs-settings-sub-menu-title {
+            background-color: transparent !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            &:after {
+                content: 'Hi, i am padding';
+                visibility: hidden;
+                display: block;
+                height: 6px;
+                width: 0;
+            }
+
+            > div {
+                &:before {
+                    width: 0.65em;
+                    height: 0.65em;
+                    border-left: 0.15em solid;
+                    border-bottom: 0.15em solid;
+                    transform: rotate(45deg);
+                }
+            }
+        }
+
+        .vjs-settings-sub-menu-option {
+            &.vjs-selected > div {
+                &:before {
+                    // $size: 0.85em;
+                    margin: auto;
+                    // @include tick($size);
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 481px) {
+    .video-js {
+        &.vjs-mplayer {
+            .vjs-menu {
+                &.vjs-setting-menu {
+                    right: calc($control-bar-horizontal-padding + 10px);
+                    bottom: calc($control-bar-height + 15px);
+                    z-index: 1;
+                    max-height: calc(90% - $control-bar-height);
+                    overflow-y: auto;
+                }
+            }
+
+            .vjs-setting-menu-value {
+                text-align: right;
+                padding-right: 0.8em;
+                font-size: 0.9em;
+                opacity: 0.9;
+                color: #eee;
+            }
+        }
+    }
+}
+
+@-webkit-keyframes bezel-fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+    }
+}
+
+@-moz-keyframes bezel-fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+    }
+}
+
+@-ms-keyframes bezel-fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+    }
+}
+
+@-o-keyframes bezel-fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+    }
+}
+
+@keyframes bezel-fadeout {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2);
+    }
+}

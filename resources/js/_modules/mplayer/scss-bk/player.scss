@@ -1,0 +1,173 @@
+.video-js {
+    font-size: $font-size;
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: #000;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+
+    > video {
+        display: block;
+    }
+
+    /*
+     *   hide ios big play button
+     *   https://stackoverflow.com/questions/8911247/hide-iphone-html5-video-play-button
+     */
+    *::-webkit-media-controls-panel,
+    *::-webkit-media-controls-play-button,
+    *::-webkit-media-controls-start-playback-button {
+        display: none !important;
+        -webkit-appearance: none;
+    }
+
+    &:-moz-full-screen {
+        position: absolute;
+    }
+
+    &:-webkit-full-screen {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    &[tabindex='-1'] {
+        outline: none;
+    }
+
+    ul {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        list-style-position: outside;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+        outline: 0;
+    }
+
+    &.vjs-fluid,
+    &.vjs-16-9,
+    &.vjs-4-3 {
+        width: 100%;
+        max-width: 100%;
+        height: 0;
+    }
+
+    &.vjs-16-9 {
+        padding-top: 56.25%;
+    }
+
+    &.vjs-4-3 {
+        padding-top: 75%;
+    }
+
+    &.vjs-fill {
+        width: 100%;
+        height: 100%;
+    }
+
+    .vjs-tech {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.vjs-fullscreen {
+        width: 100% !important;
+        height: 100% !important;
+        padding-top: 0 !important;
+        background-color: #000;
+
+        &.vjs-user-inactive {
+            cursor: none;
+        }
+    }
+
+    .vjs-offscreen {
+        height: 1px;
+        left: -9999px;
+        position: absolute;
+        top: 0;
+        width: 1px;
+    }
+
+    .vjs-control-text {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+}
+
+.vjs-hidden {
+    display: none !important;
+}
+
+.vjs-disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+body.vjs-full-window {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.vjs-full-window {
+    .video-js {
+        &.vjs-fullscreen {
+            position: fixed;
+            overflow: hidden;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+        }
+    }
+}
+
+.vjs-controls-disabled .vjs-big-play-button,
+.vjs-has-started .vjs-big-play-button,
+.vjs-using-native-controls .vjs-big-play-button,
+.vjs-error .vjs-big-play-button {
+    display: none;
+}
+
+.vjs-has-started.vjs-paused.vjs-show-big-play-button-on-pause .vjs-big-play-button {
+    display: block;
+}
+
+.vjs-resize-manager {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
+.vjs-spacer {
+    width: 8px;
+}

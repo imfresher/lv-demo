@@ -1,0 +1,25 @@
+@import 'bootstrap';
+
+// Vendors
+@import '~/datatables.net-bs5/css/dataTables.bootstrap5.css';
+@import '~/daterangepicker/daterangepicker.css';
+@import '~/sweetalert2/src/sweetalert2';
+@import '~/noty/src/noty';
+@import '~/simplebar/dist/simplebar.css';
+
+// Common
+@import '../common';
+
+// Override
+@import 'override-bootstrap';
+
+// Theme
+@import 'components/index';
+@import 'common';
+@import 'theme';
+@import 'sidebar';
+@import 'content';
+@import 'header';
+@import 'footer';
+@import 'responsive';
+
